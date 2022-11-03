@@ -63,14 +63,22 @@ Example
 ```cp .env.example .env```
 
 # Fill in the blank .env credentials and this is for example
-```APPNAME=Cart
+```
+APPNAME=Cart
 APP_URL=localhost:3002
 PORT=3003
 DB_HOST=localhost
 DB_PORT=3306
 DB_NAME=privy-database
 DB_USERNAME=root
-DB_PASSWORD=```
+DB_PASSWORD=
+
+```
+
+
+
+
+
 
 At this time, you have a RESTful API server running at `http://127.0.0.1:3000`. It provides the following endpoints:
 
