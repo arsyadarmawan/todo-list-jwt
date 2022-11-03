@@ -50,28 +50,27 @@ git clone https://github.com/arsyadarmawan/todo-list
 cd todo-list
 
 # migrate a postgres and create your database first then run this command
-Install migration for golang, `go install "postgres" https://github.com/golang-migrate/migrate/v4/cmd/migrate@latest`. Then after installed you just run this command 
-`migrate -database "postgres://user:password@host:port/dbname?query" -path db/migrations up` . for example 
-`migrate -database "postgres://admin:admin123@localhost:5432/new-app?sslmode=disable" -path db/migrations up`
+Install migration for golang, 
+```go install "postgres" https://github.com/golang-migrate/migrate/v4/cmd/migrate@latest```.
+
+ Then after installed you just run this command 
+```migrate -database "postgres://user:password@host:port/dbname?query" -path db/migrations up```. 
+
+Example
+```migrate -database "postgres://admin:admin123@localhost:5432/new-app?sslmode=disable" -path db/migrations up```
 
 # Copy .env.example to .env
-cp .env.example .env
+```cp .env.example .env```
 
 # Fill in the blank .env credentials and this is for example
-APPNAME=Cart
+```APPNAME=Cart
 APP_URL=localhost:3002
 PORT=3003
 DB_HOST=localhost
 DB_PORT=3306
 DB_NAME=privy-database
 DB_USERNAME=root
-DB_PASSWORD=
-
-# run the RESTful API server
-go run main.go
-
-# If you want to test using testify package run this following command
-go test test/stuff_test.go -v
+DB_PASSWORD=```
 
 At this time, you have a RESTful API server running at `http://127.0.0.1:3000`. It provides the following endpoints:
 
