@@ -69,9 +69,9 @@ APP_URL=localhost:3002
 PORT=3003
 DB_HOST=localhost
 DB_PORT=3306
-DB_NAME=privy-database
-DB_USERNAME=root
-DB_PASSWORD=
+DB_NAME=tasks
+DB_USERNAME=admin
+DB_PASSWORD=admin123
 
 ```
 
