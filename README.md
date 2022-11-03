@@ -1,4 +1,4 @@
-# Privy Recruitment
+# Moonlay Recruitment
 
 This requirement from https://github.com/maulanardy/moonlay-academy-technical-test/tree/be-golang
 
