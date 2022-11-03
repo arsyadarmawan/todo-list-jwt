@@ -27,7 +27,7 @@ since their usages are mostly localized and abstracted.
 * Testing: [testify](https://github.com/stretchr/testify)
 * Gorm [gorm](https://gorm.io/)
 
-## REST API for STUFF
+## REST API for TASKS
 - Find all list tasks
 - Get detail task
 - Get subtask by Id
