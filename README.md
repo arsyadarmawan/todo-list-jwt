@@ -80,9 +80,10 @@ DB_PASSWORD=
 
 
 
-At this time, you have a RESTful API server running at `http://127.0.0.1:3000`. It provides the following endpoints:
+## REST API
 
 * `POST /api/tasks`: post new task, this following curl code.
+
 ```
 curl --location --request POST 'http://127.0.0.1:3000/api/tasks' \
 --header 'Content-Type: application/json' \
