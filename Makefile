@@ -1,8 +1,14 @@
+download:
+	go mod download
+
 dep:
 	go mod tidy
 
 run:
 	go run main.go
+
+testing:
+	go test test/tasks_test.go -v
 
 build:
 	go build -o bin/moonlay ./main.go
