@@ -8,6 +8,8 @@ import (
 	"task/model/web"
 	"task/service"
 
+	"task/middleware"
+
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -31,6 +33,18 @@ func NewStuffController(service service.StuffService) StuffController {
 }
 
 func (controller *StuffControllerImpl) Create(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
+	authToken := request.Header.Get("Authorization")
+	_, isTrue := middleware.ExtractClaims(authToken)
+	if authToken == "" || isTrue == false {
+		webResponse := web.WebResponse{
+			Code:   400,
+			Status: "Bad Request",
+			Data:   "Invalidate Token",
+		}
+		helper.WriteToResponseBody(writer, webResponse)
+		return
+	}
+
 	createRequest := web.TaskCreateRequest{}
 	helper.ReadFromRequestBody(request, &createRequest)
 
@@ -45,6 +59,18 @@ func (controller *StuffControllerImpl) Create(writer http.ResponseWriter, reques
 }
 
 func (controller *StuffControllerImpl) Update(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
+	authToken := request.Header.Get("Authorization")
+	_, isTrue := middleware.ExtractClaims(authToken)
+	if authToken == "" || isTrue == false {
+		webResponse := web.WebResponse{
+			Code:   400,
+			Status: "Bad Request",
+			Data:   "Invalidate Token",
+		}
+		helper.WriteToResponseBody(writer, webResponse)
+		return
+	}
+
 	requestStuff := web.TaskUpdateRequest{}
 	fmt.Printf(requestStuff.Title)
 	helper.ReadFromRequestBody(request, &requestStuff)
@@ -66,6 +92,17 @@ func (controller *StuffControllerImpl) Update(writer http.ResponseWriter, reques
 }
 
 func (controller *StuffControllerImpl) Delete(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
+	authToken := request.Header.Get("Authorization")
+	_, isTrue := middleware.ExtractClaims(authToken)
+	if authToken == "" || isTrue == false {
+		webResponse := web.WebResponse{
+			Code:   400,
+			Status: "Bad Request",
+			Data:   "Invalidate Token",
+		}
+		helper.WriteToResponseBody(writer, webResponse)
+		return
+	}
 	stuffId := params.ByName("id")
 	id, err := strconv.Atoi(stuffId)
 	helper.PanicHandling(err)
@@ -82,6 +119,18 @@ func (controller *StuffControllerImpl) Delete(writer http.ResponseWriter, reques
 }
 
 func (controller *StuffControllerImpl) FindById(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
+	authToken := request.Header.Get("Authorization")
+	_, isTrue := middleware.ExtractClaims(authToken)
+	if authToken == "" || isTrue == false {
+		webResponse := web.WebResponse{
+			Code:   400,
+			Status: "Bad Request",
+			Data:   "Invalidate Token",
+		}
+		helper.WriteToResponseBody(writer, webResponse)
+		return
+	}
+
 	stuffId := params.ByName("id")
 	id, err := strconv.Atoi(stuffId)
 	helper.PanicHandling(err)
@@ -97,6 +146,18 @@ func (controller *StuffControllerImpl) FindById(writer http.ResponseWriter, requ
 }
 
 func (controller *StuffControllerImpl) FindAll(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
+	authToken := request.Header.Get("Authorization")
+	_, isTrue := middleware.ExtractClaims(authToken)
+	if authToken == "" || isTrue == false {
+		webResponse := web.WebResponse{
+			Code:   400,
+			Status: "Bad Request",
+			Data:   "Invalidate Token",
+		}
+		helper.WriteToResponseBody(writer, webResponse)
+		return
+	}
+
 	responses := controller.StuffService.FindAll(request.Context())
 	webResponse := web.WebResponse{
 		Code:   200,
@@ -107,6 +168,18 @@ func (controller *StuffControllerImpl) FindAll(writer http.ResponseWriter, reque
 }
 
 func (controller *StuffControllerImpl) FindSubTaskBYID(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
+	authToken := request.Header.Get("Authorization")
+	_, isTrue := middleware.ExtractClaims(authToken)
+	if authToken == "" || isTrue == false {
+		webResponse := web.WebResponse{
+			Code:   400,
+			Status: "Bad Request",
+			Data:   "Invalidate Token",
+		}
+		helper.WriteToResponseBody(writer, webResponse)
+		return
+	}
+
 	stuffId := params.ByName("id")
 	id, err := strconv.Atoi(stuffId)
 	helper.PanicHandling(err)

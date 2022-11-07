@@ -31,11 +31,18 @@ func main() {
 	}
 
 	db := app.NewDB(&configDB)
-	repo := repository.NewStuffRepository(db)
-	service := service.NewStuffService(repo, validate)
-	controller := controller.NewStuffController(service)
 
-	router := app.NewRouter(controller)
+	// tasks
+	repo := repository.NewStuffRepository(db)
+	services := service.NewStuffService(repo, validate)
+	controllers := controller.NewStuffController(services)
+
+	// users
+	repoUser := repository.NewAuthRepo(db)
+	serviceUser := service.NewUserService(repoUser, validate)
+	controllerUser := controller.NewAuthController(serviceUser)
+
+	router := app.NewRouter(controllers, &controllerUser)
 
 	router.PanicHandler = exception.ErrorHandler
 
@@ -43,7 +50,7 @@ func main() {
 		Addr:    os.Getenv("APP_URL"),
 		Handler: router,
 	}
-	fmt.Printf("Running on server " + os.Getenv("APP_URL"))
+	fmt.Printf("Running on server " + os.Getenv("APP_URL") + "\n")
 	err := server.ListenAndServe()
 	helper.PanicHandling(err)
 

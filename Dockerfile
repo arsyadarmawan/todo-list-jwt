@@ -1,21 +1,14 @@
-FROM golang:alpine
-
-RUN apk update && apk add --no-cache gcc libc-dev
-
+FROM golang:1.19-alpine3.16 AS builder
 WORKDIR /app
+COPY . .
+RUN go build -o main main.go
 
-COPY go.mod go.sum ./
-
-RUN go mod tidy
-
-ADD . .
-
-RUN go build -o /bin/moonlay ./main.go
-
-WORKDIR /
-
+# Run stage
+FROM alpine:3.16
+WORKDIR /app
+COPY --from=builder /app/main .
 COPY .env .
+COPY db/migrations ./db/migrations
 
-EXPOSE 3000
-
-CMD /bin/moonlay
+EXPOSE 8084
+CMD [ "/app/main" ]

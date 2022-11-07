@@ -1,0 +1,1 @@
+migrate -database "postgres://admin:admin123@localhost:5432/new-app?sslmode=disable" -path db/migrations up
