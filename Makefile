@@ -1,4 +1,4 @@
-DB_URL=postgresql://postgres:admin123@localhost:2022/new-app?sslmode=disable
+DB_URL=postgresql://postgres:admin123@172.17.0.2:5432/todo?sslmode=disable
 download:
 	go mod download
 
@@ -15,29 +15,29 @@ build:
 	go build -o bin/moonlay ./main.go
 
 docker-image:
-	docker build -t moonlay:v1 .
+	docker build -t todo:latest .
 
 docker-run:
-	docker run -it -d -p 3000:3000 --name moonlay
+	docker run --name moonlay -p 8084:8080 todo:latest
 
 migrate:
 	migrate create -ext sql -dir db/migrations create_table_user
 
 postgres:
-	docker run --name postgres -p 2022:5432 -e POSTGRES_PASSWORD=admin123 -d postgres:12-alpine
+	docker run --name postgres -d -p 5435:5432 -e POSTGRES_PASSWORD=admin123  postgres:12-alpine   
 
 createdb:
-	docker exec -it postgres createdb --username=postgres new-app
+	docker exec -it postgres createdb --username=postgres  todo
 
 dropdb:
 	docker exec -it postgres dropdb new-app
 
 migrate_up:
-	migrate -path db/migration -database "$(DB_URL)" -verbose up
+	migrate -path db/migrations -database "$(DB_URL)" -verbose up
 
 migratedown:
 	migrate -path db/migration -database "$(DB_URL)" -verbose down
 
 
 
-.PHONY: createdb createdb dropdb
+.PHONY: createdb dropdb

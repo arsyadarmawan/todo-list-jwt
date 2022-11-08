@@ -146,12 +146,24 @@ Run dependency manager
 make dep
 ```
 
-Running app
+Connect postgres with password admin123
 ```console
-make dep
+make postgres
 ```
 
-Unit testing
+Create DB
 ```console
-make dep
+make createdb
 ```
+
+Migrate
+```console
+make migrate_up
+```
+
+Running app
+```console
+make run
+```
+
+

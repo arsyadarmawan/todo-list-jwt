@@ -10,6 +10,7 @@ require (
 	github.com/joho/godotenv v1.4.0
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/lib/pq v1.10.7
+	github.com/mythrnr/httprouter-group v0.7.1
 	github.com/sirupsen/logrus v1.9.0
 	golang.org/x/crypto v0.1.0
 	gorm.io/driver/postgres v1.4.5
@@ -30,8 +31,6 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
-	github.com/mythrnr/httprouter-group v0.7.1 // indirect
-	github.com/stretchr/testify v1.8.1 // indirect
 	golang.org/x/sys v0.1.0 // indirect
 	golang.org/x/text v0.4.0 // indirect
 )
