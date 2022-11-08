@@ -1,4 +1,4 @@
-DB_URL=postgresql://postgres:admin123@172.17.0.2:5432/todo?sslmode=disable
+DB_URL=postgresql://postgres:admin123@localhost:5435/todo?sslmode=disable
 download:
 	go mod download
 

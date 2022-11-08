@@ -81,6 +81,18 @@ DB_PASSWORD=admin123
 
 
 ## REST API
+* `POST /api/auth/register`: register users. Here the example
+
+```
+curl --location --request POST 'localhost:3000/api/auth/register' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name" : "admin",
+    "password" : "admin123",
+    "username" : "admin"
+}'
+```
+
 
 * `POST /api/tasks`: post new task, this following curl code.
 
@@ -95,16 +107,27 @@ curl --location --request POST 'http://127.0.0.1:3000/api/tasks' \
     "poin" : 2
 }'
 ```
-* `GET /api/tasks`: returns tasks list
+
+* `Login /api/tasks`: Login users with regitered account.
+
+```
+curl --location --request POST 'localhost:3000/api/auth/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username" : "thareeq",
+    "password" : "hermudtad"
+}'
+```
+* `GET /api/tasks`: returns tasks list, dont forget insert token from login
 
 ```
 curl --location --request GET 'http://127.0.0.1:3000/api/tasks/'
 ```
-* `GET /api/tasks/:id`: returns the detailed information of an task
+* `GET /api/tasks/:id`: returns the detailed information of an task, dont forget insert token from login
 ```
 curl --location --request GET 'http://127.0.0.1:3000/api/tasks/1'
 ```
-* `PUT /api/tasks/:id`: updates an existing task
+* `PUT /api/tasks/:id`: updates an existing task, dont forget insert token from login
 ```
 curl --location --request PUT 'localhost:3000/api/tasks/1' \
 --header 'Content-Type: application/json' \
@@ -115,7 +138,7 @@ curl --location --request PUT 'localhost:3000/api/tasks/1' \
     "parent_task_id" : null
 }'
 ```
-* `DELETE /api/tasks/:id`: deletes an task
+* `DELETE /api/tasks/:id`: deletes an task, dont forget insert token from login
 ```
 curl --location --request DELETE 'http://127.0.0.1:3000/api/tasks/1' \
 --header 'Content-Type: application/json' \
@@ -129,7 +152,7 @@ curl --location --request DELETE 'http://127.0.0.1:8080/api/cakes/1' \
 --header 'Accept: application/json'
 ```
 
-* `Get Subtask by id /v1/albums/:id`: deletes an task
+* `Get Subtask by id /v1/albums/:id`: deletes an task, dont forget insert token from login
 ```
 curl --location --request GET 'localhost:3000/api/subtaks/1'
 ```
