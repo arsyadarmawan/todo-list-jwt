@@ -93,6 +93,16 @@ curl --location --request POST 'localhost:3000/api/auth/register' \
 }'
 ```
 
+* `Login /api/tasks`: Login users with regitered account.
+
+```
+curl --location --request POST 'localhost:3000/api/auth/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username" : "admin",
+    "password" : "admin123"
+}'
+```
 
 * `POST /api/tasks`: post new task, this following curl code.
 
@@ -108,16 +118,6 @@ curl --location --request POST 'http://127.0.0.1:3000/api/tasks' \
 }'
 ```
 
-* `Login /api/tasks`: Login users with regitered account.
-
-```
-curl --location --request POST 'localhost:3000/api/auth/login' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "username" : "thareeq",
-    "password" : "hermudtad"
-}'
-```
 * `GET /api/tasks`: returns tasks list, dont forget insert token from login
 
 ```
