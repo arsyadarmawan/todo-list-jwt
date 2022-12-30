@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 	"task/helper"
@@ -9,17 +8,12 @@ import (
 	"task/service"
 	"time"
 
+	_domain "task/model/domain"
+
 	"github.com/golang-jwt/jwt"
 	"github.com/julienschmidt/httprouter"
 	"golang.org/x/crypto/bcrypt"
 )
-
-type jwtCustomClaims struct {
-	Id       int    `json:id`
-	Name     string `json:"name"`
-	Username string `json:"username"`
-	jwt.StandardClaims
-}
 
 type AuthUserHandler interface {
 	Create(writer http.ResponseWriter, request *http.Request, params httprouter.Params)
@@ -40,7 +34,15 @@ func NewAuthController(service service.AuthService) UserController {
 func (a *UserController) Create(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
 	createRequest := web.UserCreateRequest{}
 	helper.ReadFromRequestBody(request, &createRequest)
-
+	if a.authService.CheckEmailValidation(request.Context(), createRequest.Email) == true {
+		webResponse := web.WebResponse{
+			Code:   400,
+			Status: "Failed",
+			Data:   "User already registered",
+		}
+		helper.WriteToResponseBody(writer, webResponse)
+		return
+	}
 	response := a.authService.Register(request.Context(), createRequest)
 	webResponse := web.WebResponse{
 		Code:   200,
@@ -57,8 +59,6 @@ func (a *UserController) Login(writer http.ResponseWriter, request *http.Request
 
 	hashPass, err := a.authService.Login(request.Context(), createRequest)
 	helper.PanicHandling(err)
-	fmt.Printf("BANGSAAATTT" + createRequest.Username)
-
 	if err := bcrypt.CompareHashAndPassword([]byte(hashPass), []byte(createRequest.Password)); err != nil {
 		webResponse := web.WebResponse{
 			Code:   500,
@@ -69,11 +69,12 @@ func (a *UserController) Login(writer http.ResponseWriter, request *http.Request
 		return
 	}
 
-	userDomain := a.authService.CheckUsername(request.Context(), createRequest.Username)
+	userDomain := a.authService.CheckUsername(request.Context(), createRequest.Email)
 
-	claims := &jwtCustomClaims{
+	claims := _domain.JwtCustomClaims{
 		userDomain.Id,
 		userDomain.Name,
+		userDomain.Email,
 		userDomain.Username,
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Hour * 72).Unix(),
@@ -84,14 +85,15 @@ func (a *UserController) Login(writer http.ResponseWriter, request *http.Request
 
 	t, err := token.SignedString([]byte(os.Getenv("SECRET_KEY")))
 	helper.PanicHandling(err)
-
 	webResponse := web.WebResponse{
 		Code:   200,
 		Status: "Found",
-		Data:   t,
+		Data: _domain.TokenJWT{
+			AccesToken: t,
+			User:       userDomain,
+		},
 	}
 	helper.WriteToResponseBody(writer, webResponse)
-
 }
 
 func (a *UserController) Delete(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {

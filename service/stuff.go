@@ -2,14 +2,11 @@ package service
 
 import (
 	"context"
-	"fmt"
-	"strconv"
 	"task/exception"
 	"task/helper"
 	"task/model/domain"
 	"task/model/web"
 	"task/repository"
-	"time"
 
 	"github.com/go-playground/validator/v10"
 )
@@ -18,8 +15,7 @@ type StuffService interface {
 	Create(ctx context.Context, request web.TaskCreateRequest) web.TaskResponse
 	Update(ctx context.Context, request web.TaskUpdateRequest) web.TaskResponse
 	FindById(ctx context.Context, task int) web.TaskResponse
-	FindTaskByTaskId(ctx context.Context, id int) []web.TaskResponse
-	FindAll(ctx context.Context) []web.TaskResponse
+	FindAll(ctx context.Context, userId int) []web.TaskResponse
 	Delete(ctx context.Context, id int)
 }
 
@@ -36,15 +32,12 @@ func NewStuffService(stuffRepo repository.StuffRepo, validate *validator.Validat
 }
 
 func (service *StuffRepositoryImpl) Create(ctx context.Context, request web.TaskCreateRequest) web.TaskResponse {
-	fmt.Printf("Parent" + strconv.Itoa(request.Parent_Task_Id))
 	err := service.Validate.Struct(request)
 	helper.PanicHandling(err)
 	stuffDomain := domain.Task{
-		Title:          request.Title,
-		Image:          request.Image,
-		Description:    request.Description,
-		Parent_Task_Id: request.Parent_Task_Id,
-		Poin:           int(request.Poin),
+		User_id:    request.User_Id,
+		Product_id: request.Product_Id,
+		Total:      request.Total,
 	}
 
 	stuff := service.StuffRepository.CreateStuff(ctx, stuffDomain)
@@ -59,14 +52,8 @@ func (service *StuffRepositoryImpl) Update(ctx context.Context, request web.Task
 	helper.PanicHandling(errNotFound)
 
 	stuffDomain := domain.Task{
-		Id:             request.Id,
-		Image:          request.Image,
-		Description:    request.Description,
-		Title:          request.Title,
-		Created_At:     time.Now(),
-		Updated_at:     time.Now(),
-		Parent_Task_Id: int(request.Parent_Task_Id),
-		Poin:           request.Poin,
+		Id:    request.Id,
+		Total: request.Total,
 	}
 
 	stuff := service.StuffRepository.Update(ctx, stuffDomain)
@@ -81,39 +68,17 @@ func (service *StuffRepositoryImpl) FindById(ctx context.Context, task int) web.
 	return helper.StuffResponse(stuff)
 }
 
-func (service *StuffRepositoryImpl) FindTaskByTaskId(ctx context.Context, id int) []web.TaskResponse {
-	stuffChildren := service.StuffRepository.FindTaskByTaskId(ctx, id)
-	var responses []web.TaskResponse
-	for _, item := range stuffChildren {
-		responseStuf := web.TaskResponse{
-			Id:             item.Id,
-			Title:          item.Title,
-			Description:    item.Description,
-			Image:          item.Image,
-			Parent_Task_Id: int(item.Parent_Task_Id),
-			Updated_at:     item.Updated_at,
-			Created_at:     item.Created_At,
-			Poin:           item.Poin,
-		}
-		responses = append(responses, responseStuf)
-	}
-	return responses
-
-}
-
-func (service *StuffRepositoryImpl) FindAll(ctx context.Context) []web.TaskResponse {
-	stuffs := service.StuffRepository.FindTask(ctx)
+func (service *StuffRepositoryImpl) FindAll(ctx context.Context, userId int) []web.TaskResponse {
+	stuffs := service.StuffRepository.FindTask(ctx, userId)
 	var responses []web.TaskResponse
 	for _, item := range stuffs {
 		responseStuf := web.TaskResponse{
-			Id:             item.Id,
-			Title:          item.Title,
-			Description:    item.Description,
-			Image:          item.Image,
-			Parent_Task_Id: int(item.Parent_Task_Id),
-			Updated_at:     item.Updated_at,
-			Created_at:     item.Created_At,
-			Poin:           int(item.Poin),
+			Id:         item.Id,
+			User_Id:    item.User_id,
+			Product_Id: item.Product_id,
+			Updated_at: item.Updated_at,
+			Created_at: item.Created_At,
+			Total:      int(item.Total),
 		}
 
 		responses = append(responses, responseStuf)

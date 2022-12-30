@@ -1,14 +1,11 @@
 package domain
 
-import (
-	"time"
-)
+import "time"
 
-type Task struct {
+type Cart struct {
 	Id         int
-	Product_id int
 	User_id    int
-	Total      int
+	Product_id int
 	Created_At time.Time
 	Updated_at time.Time
 }

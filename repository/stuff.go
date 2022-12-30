@@ -13,8 +13,7 @@ type StuffRepo interface {
 	Update(ctx context.Context, stuff domain.Task) domain.Task
 	Delete(ctx context.Context, stuff domain.Task)
 	FindById(ctx context.Context, id int) (domain.Task, error)
-	FindTask(ctx context.Context) []domain.Task
-	FindTaskByTaskId(ctx context.Context, id int) []domain.Task
+	FindTask(ctx context.Context, userId int) []domain.Task
 }
 
 type StuffRepoImpl struct {
@@ -29,11 +28,11 @@ func NewStuffRepository(database *gorm.DB) StuffRepo {
 
 func (repository *StuffRepoImpl) CreateStuff(ctx context.Context, stuff domain.Task) domain.Task {
 	task := Task{
-		Title:       stuff.Title,
-		Description: stuff.Description,
-		Image:       stuff.Image,
-		// Parent_Task_Id: stuff.Parent_Task_Id,
-		Poin: stuff.Poin,
+		Created_At: stuff.Created_At,
+		Updated_at: stuff.Updated_at,
+		Product_id: stuff.Product_id,
+		User_id:    stuff.User_id,
+		Total:      stuff.Total,
 	}
 
 	result := repository.db.Create(&task)
@@ -42,26 +41,23 @@ func (repository *StuffRepoImpl) CreateStuff(ctx context.Context, stuff domain.T
 	return stuff
 }
 
-func (repository StuffRepoImpl) Update(ctx context.Context, stuff domain.Task) domain.Task {
+func (repository *StuffRepoImpl) Update(ctx context.Context, stuff domain.Task) domain.Task {
 	task := Task{
-		Title:          stuff.Title,
-		Description:    stuff.Description,
-		Parent_Task_Id: stuff.Parent_Task_Id,
-		Image:          stuff.Image,
+		Total: stuff.Total,
 	}
-	query := repository.db.Model(&Task{}).Where("id = ?", stuff.Id).Updates(task).Find(&Task{})
+	query := repository.db.Model(&Task{}).Where("product_id = ?", stuff.Id).Updates(task).Find(&Task{})
 	helper.PanicHandlerGORM(*query)
 	return stuff
 }
 
-func (repository StuffRepoImpl) Delete(ctx context.Context, stuff domain.Task) {
+func (repository *StuffRepoImpl) Delete(ctx context.Context, stuff domain.Task) {
 	task := Task{}
 
 	query := repository.db.Delete(&task, stuff.Id)
 	helper.PanicHandlerGORM(*query)
 }
 
-func (repository StuffRepoImpl) FindById(ctx context.Context, id int) (domain.Task, error) {
+func (repository *StuffRepoImpl) FindById(ctx context.Context, id int) (domain.Task, error) {
 	var task Task
 	result := repository.db.First(&task, id)
 
@@ -69,41 +65,22 @@ func (repository StuffRepoImpl) FindById(ctx context.Context, id int) (domain.Ta
 	return task.ToDomain(), nil
 }
 
-func (repository StuffRepoImpl) FindTask(ctx context.Context) []domain.Task {
+func (repository *StuffRepoImpl) FindTask(ctx context.Context, userId int) []domain.Task {
 	var tasks []Task
-	result := repository.db.Where("parent_task_id = ? ", 0).Order("poin desc").Find(&tasks)
+	result := repository.db.Where("user_id = ? ", userId).Find(&tasks)
 
 	helper.PanicHandlerGORM(*result)
 	var resultTask []domain.Task
 	for _, result := range tasks {
 		resultTask = append(resultTask, domain.Task{
-			Id:             int(result.Id),
-			Title:          result.Title,
-			Description:    result.Description,
-			Poin:           result.Poin,
-			Image:          result.Image,
-			Parent_Task_Id: result.Parent_Task_Id,
+			Created_At: result.Created_At,
+			Updated_at: result.Updated_at,
+			Product_id: result.Product_id,
+			Total:      result.Total,
+			Id:         int(result.Id),
+			User_id:    result.User_id,
 		})
 	}
 
-	return resultTask
-}
-
-func (repository StuffRepoImpl) FindTaskByTaskId(ctx context.Context, id int) []domain.Task {
-	var tasks []Task
-	result := repository.db.Where("parent_task_id = ?", id).Order("poin desc").Find(&tasks)
-
-	helper.PanicHandlerGORM(*result)
-	var resultTask []domain.Task
-	for _, result := range tasks {
-		resultTask = append(resultTask, domain.Task{
-			Id:             int(result.Id),
-			Title:          result.Title,
-			Description:    result.Description,
-			Image:          result.Image,
-			Poin:           result.Poin,
-			Parent_Task_Id: result.Parent_Task_Id,
-		})
-	}
 	return resultTask
 }

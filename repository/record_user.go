@@ -9,6 +9,7 @@ type User struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 	Name     string `json:"name"`
+	Email    string `json:"email"`
 }
 
 func (user *User) ToDomain() _user.User {
@@ -16,5 +17,6 @@ func (user *User) ToDomain() _user.User {
 		Username: user.Username,
 		Name:     user.Name,
 		Id:       user.Id,
+		Email:    user.Email,
 	}
 }

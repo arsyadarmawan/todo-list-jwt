@@ -14,6 +14,7 @@ type User struct {
 	GormCustom
 	Username string `json:"username" gorm:"unique"`
 	Password string `json:"password"`
+	Email    string `json:"email"`
 	Name     string `json:"name"`
 	Id       uint   `json:"id" gorm:"primary_key"`
 }

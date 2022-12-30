@@ -8,6 +8,9 @@ dep:
 run:
 	go run main.go
 
+nodemon:
+	nodemon --exec go run main.go --signal SIGTERM
+
 testing:
 	go test test/tasks_test.go -v
 

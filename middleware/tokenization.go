@@ -1,11 +1,16 @@
 package middleware
 
 import (
+	"context"
 	"log"
 	"os"
 
 	"github.com/golang-jwt/jwt"
 )
+
+type claimskey int
+
+var claimsKey claimskey
 
 func ExtractClaims(tokenStr string) (jwt.MapClaims, bool) {
 	hmacSecretString := os.Getenv("SECRET_KEY")
@@ -25,4 +30,13 @@ func ExtractClaims(tokenStr string) (jwt.MapClaims, bool) {
 		log.Printf("Invalid JWT Token")
 		return nil, false
 	}
+}
+
+func SetJWTClaimsContext(ctx context.Context, claims jwt.MapClaims) context.Context {
+	return context.WithValue(ctx, claimsKey, claims)
+}
+
+func JWTClaimsFromContext(ctx context.Context) (jwt.MapClaims, bool) {
+	claims, ok := ctx.Value(claimsKey).(jwt.MapClaims)
+	return claims, ok
 }

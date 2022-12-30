@@ -93,7 +93,7 @@ curl --location --request POST 'localhost:3000/api/auth/register' \
 }'
 ```
 
-* `Login /api/tasks`: Login users with regitered account.
+* `Login /api/auth/login`: Login users with regitered account.
 
 ```
 curl --location --request POST 'localhost:3000/api/auth/login' \

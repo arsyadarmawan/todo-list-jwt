@@ -1,13 +1,57 @@
+CREATE TABLE CATEGORIES (
+    ID INT PRIMARY KEY NOT NULL,
+    NAME VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP);
+
+
+INSERT INTO CATEGORIES (ID, NAME) VALUES (1, 'books');
+INSERT INTO CATEGORIES (ID, NAME) VALUES (2, 'tools');
+INSERT INTO categories (ID, NAME) VALUES (3, 'electronics');
+
+CREATE TABLE PRODUCTS (
+    ID INT PRIMARY KEY NOT NULL,
+    NAME VARCHAR(255)  NULL,
+    DESCRIPTION  VARCHAR(255)  NULL,
+    PRICE FLOAT NULL,
+    STOCK INT NULL,
+    CREATED_AT TIMESTAMP,
+    UPDATED_AT TIMESTAMP
+);
+
+INSERT INTO PRODUCTS (ID, NAME, DESCRIPTION, PRICE, STOCK) VALUES (1,'science','science', 1000000, 99);
+INSERT INTO PRODUCTS (ID, NAME, DESCRIPTION, PRICE, STOCK) VALUES (2,'science','science', 2000000, 99);
+INSERT INTO PRODUCTS (ID, NAME, DESCRIPTION, PRICE, STOCK) VALUES (3,'socials one','socials one', 3000000, 99);
+INSERT INTO PRODUCTS (ID, NAME, DESCRIPTION, PRICE, STOCK) VALUES (4,'socials two','socials two', 4000000, 99);
+INSERT INTO PRODUCTS (ID, NAME, DESCRIPTION, PRICE, STOCK) VALUES (5,'nail one','nail one', 200, 99);
+INSERT INTO PRODUCTS (ID, NAME, DESCRIPTION, PRICE, STOCK) VALUES (6,'hammer one','nail one', 10000, 99);
+INSERT INTO PRODUCTS (ID, NAME, DESCRIPTION, PRICE, STOCK) VALUES (7,'refrigerator one','refrigerator one', 13000, 99);
+INSERT INTO PRODUCTS (ID, NAME, DESCRIPTION, PRICE, STOCK) VALUES (8,'microwave one','microwave one', 70200, 99); 
+
+CREATE TABLE CATEGORIES_PRODUCTS (
+    id SERIAL PRIMARY KEY,
+    category_id int REFERENCES categories (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    product_id int REFERENCES products (id) ON UPDATE CASCADE,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
+);
+
+INSERT INTO CATEGORIES_PRODUCTS (id, category_id, product_id) VALUES (1,1,1);
+INSERT INTO CATEGORIES_PRODUCTS (id, category_id, product_id) VALUES (2,1,2);
+INSERT INTO CATEGORIES_PRODUCTS (id, category_id, product_id) VALUES (3,1,3);
+INSERT INTO CATEGORIES_PRODUCTS (id, category_id, product_id) VALUES (4,1,4);
+INSERT INTO CATEGORIES_PRODUCTS (id, category_id, product_id) VALUES (5,2,5);
+INSERT INTO CATEGORIES_PRODUCTS (id, category_id, product_id) VALUES (6,2,6);
+INSERT INTO CATEGORIES_PRODUCTS (id, category_id, product_id) VALUES (7,3,7);
+INSERT INTO CATEGORIES_PRODUCTS (id, category_id, product_id) VALUES (8,3,8);
+
+
+
 CREATE TABLE tasks (
     id SERIAL PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    description TEXT NOT NULL,
-    image VARCHAR(255),
+    product_id INT DEFAULT NULL,
+    user_id INT DEFAULT NULL,
+    total INT DEFAULT 0,
     created_at TIMESTAMP,
-    updated_at TIMESTAMP,
-    parent_task_id INT DEFAULT NULL,
-    poin INT NOT NULL);
-
--- migrate -database postgres://admin:admin123@localhost:5432/new-app -path db/migrations up
--- migrate -database "postgres://admin:admin123@localhost:5432/new-app?sslmode=disable" -path db/migrations up
--- migrate -database "postgres://postgres:admin123@localhost:2022/new-app?sslmode=disable" -path db/migrations up
+    updated_at TIMESTAMP
+);

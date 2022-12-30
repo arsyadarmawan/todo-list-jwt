@@ -9,6 +9,9 @@ import (
 	"task/exception"
 	"task/helper"
 	"task/repository"
+	"task/repository/category"
+	"task/repository/product"
+
 	"task/service"
 
 	_ "github.com/lib/pq"
@@ -32,17 +35,25 @@ func main() {
 
 	db := app.NewDB(&configDB)
 
-	// tasks
-	repo := repository.NewStuffRepository(db)
-	services := service.NewStuffService(repo, validate)
-	controllers := controller.NewStuffController(services)
-
 	// users
 	repoUser := repository.NewAuthRepo(db)
 	serviceUser := service.NewUserService(repoUser, validate)
 	controllerUser := controller.NewAuthController(serviceUser)
+	// tasks
+	repo := repository.NewStuffRepository(db)
+	services := service.NewStuffService(repo, validate)
+	controllers := controller.NewStuffController(services, serviceUser)
 
-	router := app.NewRouter(controllers, &controllerUser)
+	// product
+	repoProduct := product.NewProductRepository(db)
+	productService := service.NewProductService(repoProduct, validate)
+	controllerProduct := controller.NewProductController(productService)
+
+	// categories
+	categoryRepo := category.NewCategoryRepository(db)
+	categoryService := service.NewCategoryService(categoryRepo, validate)
+	categoryController := controller.NewCategoryController(categoryService)
+	router := app.NewRouter(controllers, &controllerUser, controllerProduct, categoryController)
 
 	router.PanicHandler = exception.ErrorHandler
 
