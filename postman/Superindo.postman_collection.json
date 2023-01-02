@@ -1,0 +1,355 @@
+{
+	"info": {
+		"_postman_id": "6f574825-df58-4ed0-9a6c-c6e68ae887fc",
+		"name": "Superindo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4877041"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"thareq\",\n    \"password\" : \"admin123\",\n    \"username\" : \"arsyadarmawan\",\n    \"email\" : \"thareq.ad@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/auth/register",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\" : \"admin123\",\n    \"email\" : \"thareq.ad@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Carts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6NCwibmFtZSI6InRoYXJlcSIsImVtYWlsIjoidGhhcmVxLmFkQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiYXJzeWFkYXJtYXdhbiIsImV4cCI6MTY3MjY3NTU5NH0.3t0365cAeu-56J5p_dib3_6RH4fZbhtN0wDtVBrcTFI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\" : \"Hermudtad123!\",\n    \"email\" : \"thareeqarsyad@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/carts/10",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"carts",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Carts By Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6NCwibmFtZSI6InRoYXJlcSIsImVtYWlsIjoidGhhcmVxLmFkQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiYXJzeWFkYXJtYXdhbiIsImV4cCI6MTY3MjY3NTU5NH0.3t0365cAeu-56J5p_dib3_6RH4fZbhtN0wDtVBrcTFI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\" : \"Hermudtad123!\",\n    \"email\" : \"thareeqarsyad@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/tasks",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Cart",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6NCwibmFtZSI6InRoYXJlcSIsImVtYWlsIjoidGhhcmVxLmFkQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiYXJzeWFkYXJtYXdhbiIsImV4cCI6MTY3MjY3NTU5NH0.3t0365cAeu-56J5p_dib3_6RH4fZbhtN0wDtVBrcTFI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"product_id\" : 2,\n    \"total\" : 19\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/tasks",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product by Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6NiwibmFtZSI6InRoYXJlcSIsImVtYWlsIjoidGhhcmVlcWFyc3lhZEBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImFyc3lhZGFybWF3YW4iLCJleHAiOjE2NzI1NDU4MDJ9.9CWgH4sCUaff0jz26zCGVh67fXbPbjFImBHnhewbshs",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\" : \"Hermudtad123!\",\n    \"email\" : \"thareeqarsyad@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/product/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"product",
+						"1"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "satu",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6NiwibmFtZSI6InRoYXJlcSIsImVtYWlsIjoidGhhcmVlcWFyc3lhZEBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImFyc3lhZGFybWF3YW4iLCJleHAiOjE2NzI1NDU4MDJ9.9CWgH4sCUaff0jz26zCGVh67fXbPbjFImBHnhewbshs",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\" : \"Hermudtad123!\",\n    \"email\" : \"thareeqarsyad@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/products",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "ham",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Categories",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6NiwibmFtZSI6InRoYXJlcSIsImVtYWlsIjoidGhhcmVlcWFyc3lhZEBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImFyc3lhZGFybWF3YW4iLCJleHAiOjE2NzI1NDU4MDJ9.9CWgH4sCUaff0jz26zCGVh67fXbPbjFImBHnhewbshs",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\" : \"Hermudtad123!\",\n    \"email\" : \"thareeqarsyad@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/categories",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"categories"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "satu",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Categories By Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6NiwibmFtZSI6InRoYXJlcSIsImVtYWlsIjoidGhhcmVlcWFyc3lhZEBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImFyc3lhZGFybWF3YW4iLCJleHAiOjE2NzI1NDU4MDJ9.9CWgH4sCUaff0jz26zCGVh67fXbPbjFImBHnhewbshs",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\" : \"Hermudtad123!\",\n    \"email\" : \"thareeqarsyad@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/categories/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"categories",
+						"1"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "satu",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

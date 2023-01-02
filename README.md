@@ -1,6 +1,6 @@
-# Pintap Recruitment
+# Superindo Recruitment
 
-This requirement from https://docs.google.com/document/d/18Yt-YBxnDJyuTjotIVaWJdBhpEeH3_89/edit?usp=sharing&ouid=110539423922657302860&rtpof=true&sd=true
+Please activate your docker and import json from postman
 
 ## Summary
 This app provides REST API for todo list stuff, This Rest API including simple CRUD (Create Read Update Delete) with unit testing, migration, and containerization using docker file.
@@ -104,58 +104,6 @@ curl --location --request POST 'localhost:3000/api/auth/login' \
 }'
 ```
 
-* `POST /api/tasks`: post new task, this following curl code.
-
-```
-curl --location --request POST 'http://127.0.0.1:3000/api/tasks' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "title" : "seria",
-    "description" : "seria",
-    "image" : "loremipsum.jpg",
-    "parent_task_id" : null,
-    "poin" : 2
-}'
-```
-
-* `GET /api/tasks`: returns tasks list, dont forget insert token from login
-
-```
-curl --location --request GET 'http://127.0.0.1:3000/api/tasks/'
-```
-* `GET /api/tasks/:id`: returns the detailed information of an task, dont forget insert token from login
-```
-curl --location --request GET 'http://127.0.0.1:3000/api/tasks/1'
-```
-* `PUT /api/tasks/:id`: updates an existing task, dont forget insert token from login
-```
-curl --location --request PUT 'localhost:3000/api/tasks/1' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "title" : "serie c",
-    "description" : "serie c",
-    "image" : "loremipsum.jpg",
-    "parent_task_id" : null
-}'
-```
-* `DELETE /api/tasks/:id`: deletes an task, dont forget insert token from login
-```
-curl --location --request DELETE 'http://127.0.0.1:3000/api/tasks/1' \
---header 'Content-Type: application/json' \
---header 'Accept: application/json'
-```
-
-All success Response will be
-```
-curl --location --request DELETE 'http://127.0.0.1:8080/api/cakes/1' \
---header 'Content-Type: application/json' \
---header 'Accept: application/json'
-```
-
-* `Get Subtask by id /v1/albums/:id`: deletes an task, dont forget insert token from login
-```
-curl --location --request GET 'localhost:3000/api/subtaks/1'
-```
 
 ## Run the project
 Download package
