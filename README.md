@@ -117,17 +117,17 @@ Run dependency manager
 make dep
 ```
 
-Connect postgres with password admin123
+Connect postgres with password admin123 using docker
 ```console
 make postgres
 ```
 
-Create DB
+Create DB to docker
 ```console
 make createdb
 ```
 
-Migrate
+Migrate DB to postgres docker
 ```console
 make migrate_up
 ```
